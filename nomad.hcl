@@ -28,7 +28,7 @@ job "site-index" {
           type = "syslog"
           config {
             syslog-address = "udp://syslog.service.consul:5514"
-            tag = "$${NOMAD_TASK_NAME} $${NOMAD_ALLOC_ID} $${attr.unique.hostname} "
+            tag = "${NOMAD_TASK_NAME} ${NOMAD_ALLOC_ID} ${attr.unique.hostname} "
           }   
         }   
       }
