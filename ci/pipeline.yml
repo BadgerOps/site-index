@@ -92,7 +92,7 @@ jobs:
                docker tag "$(cat edge/image-id)" test-image:edge 
                docker run -d --net=host test-image:edge
                sleep 3
-               curl http://localhost:3000 | grep "hello world" && echo "test passed"
+               curl http://localhost:5000 | grep "site index" && echo "test passed"
 
         on_failure:
           put: notify
