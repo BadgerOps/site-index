@@ -124,7 +124,7 @@ jobs:
     plan:                                                     
       - aggregate:                                            
         - { get: latest, passed: [push], trigger: true  }
-        - { get: code, trigger: false  }                   
+        - { get: code, trigger: false  }  # for nomad.hcl file               
       - put: nomad                                            
         params:                                               
           job_path: code/nomad.hcl                             
