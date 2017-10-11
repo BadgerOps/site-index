@@ -1,4 +1,4 @@
-job "site-proxy" {
+job "site-index" {
   datacenters = ["dc1"]
   type = "service"
 
@@ -55,65 +55,6 @@ job "site-proxy" {
         network {
           mbits = 10
           port "http" {}
-        }
-      }
-
-      logs {
-        max_files     = 3
-        max_file_size = 2
-      }
-    }
-  }
- 
-  group "proxy" {
-    count = 1
-    ephemeral_disk {
-      size = 20  # in MB
-    }
-
-    task "traefik" {
-
-      constraint {
-        attribute = "${node.class}"
-        operator  = "="
-        value     = "leader"
-      }
-
-      driver = "docker"
-
-      config {
-        image = "traefik:1.2.3"
-        volumes = [ "/mnt/syn-docker/traefik:/etc/traefik" ]
-        port_map = { "admin" = 8080 }
-        logging {
-          type = "syslog"
-          config {
-            syslog-address = "udp://syslog.service.consul:5514"
-            tag = "$${NOMAD_TASK_NAME} $${NOMAD_ALLOC_ID} $${attr.unique.hostname} "
-          }   
-        }   
-      }
-
-      service {
-        name = "traefik"
-        port = "admin"
-        tags = [ "http" ]
-        check {
-          type = "http"
-          path = "/"
-          interval = "10s"
-          timeout = "2s"
-        }
-      }
-
-      resources {
-        cpu    = 50 # MHz
-        memory = 256 # MB
-        network {
-          mbits = 10
-          port "http"  { static = 80  }
-          port "https" { static = 443 }
-          port "admin" { }
         }
       }
 
