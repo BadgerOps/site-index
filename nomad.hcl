@@ -22,7 +22,7 @@ job "site-index" {
     task "site-index" {
       driver = "docker"
       config {
-        image = "thecase/site-index:latest"
+        image = "registry.311cub.net:5000/site-index:latest"
         port_map { http = 5000 }
         logging {
           type = "syslog"
@@ -32,7 +32,6 @@ job "site-index" {
           }   
         }   
       }
-
       env {
         "CONSUL_HTTP_ADDR" = "consul.service.consul:8500"
       }
@@ -52,7 +51,7 @@ job "site-index" {
 
       resources {
         cpu    = 20 # MHz 
-        memory = 20 # MB 
+        memory = 256 # MB 
         network {
           mbits = 10
           port "http" {}
