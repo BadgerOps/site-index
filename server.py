@@ -16,8 +16,8 @@ services = dict()
 
 
 config = ConfigParser.ConfigParser()
-config.readfp(open('defaults.cfg'))
-bind_addr = config.get('host attributes', bind_addr)
+config.readfp(open('default.cfg'))
+bind_addr = config.get('attributes', 'bind_addr')
 
 @app.route('/')
 def index():
