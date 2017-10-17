@@ -18,6 +18,7 @@ services = dict()
 config = ConfigParser.ConfigParser()
 config.readfp(open('default.cfg'))
 bind_addr = config.get('attributes', 'bind_addr')
+bind_port = int(config.get('attributes', 'bind_port'))
 
 @app.route('/')
 def index():
@@ -34,4 +35,4 @@ def index():
     return render_template('index.html', services=services)
 
 if __name__ == '__main__':
-    app.run(debug=True, host=bind_addr, port=int(5000))
+    app.run(debug=True, host=bind_addr, port=bind_port)
